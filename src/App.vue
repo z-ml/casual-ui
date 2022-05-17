@@ -18,10 +18,7 @@ export default {
      *  果不为空的话就将对应获取到的值给到 data-skin
      **/
     if (localStorage.getItem('type') != null) {
-      window.document.documentElement.setAttribute(
-        'data-skin',
-        localStorage.getItem('type')
-      )
+      window.document.documentElement.setAttribute('data-skin', localStorage.getItem('type'))
     } else {
       window.document.documentElement.setAttribute('data-skin', 'dark')
     }
@@ -30,4 +27,4 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="scss"></style>
