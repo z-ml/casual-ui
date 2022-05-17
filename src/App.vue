@@ -10,59 +10,24 @@
 <script>
 export default {
   data() {
-    return {
-      link: [
-        { name: 'Table', tag: '/' },
-        { name: 'Tag', tag: '/tag' },
-        { name: 'loading', tag: '/loading' },
-      ],
-      idx: 0,
+    return {}
+  },
+  created() {
+    /**
+     *  判断 localStorage 中的 type 是否为空，如果为空的话，就给默认的颜色（页面初始化的颜色），如
+     *  果不为空的话就将对应获取到的值给到 data-skin
+     **/
+    if (localStorage.getItem('type') != null) {
+      window.document.documentElement.setAttribute(
+        'data-skin',
+        localStorage.getItem('type')
+      )
+    } else {
+      window.document.documentElement.setAttribute('data-skin', 'dark')
     }
   },
   methods: {},
 }
 </script>
 
-<style lang="less">
-@--menu-width: 230px;
-html,
-body,
-.app-layout {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: hsl(210, 37%, 97%);
-}
-
-.app-layout {
-  overflow-y: auto;
-
-  .app-menu {
-    width: @--menu-width;
-  }
-
-  .app-main {
-    margin-left: @--menu-width;
-    padding: 15px;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition-property: opacity, transform;
-  transition-duration: 0.2s, 0.3s;
-}
-
-.fade-enter-to,
-.fade-leave {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-</style>
+<style lang="less"></style>

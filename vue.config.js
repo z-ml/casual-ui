@@ -2,5 +2,13 @@ module.exports = {
   devServer: {
     port: 9001,
   },
-  css: {extract: false}
+  // webpack配置
+    // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
+    css: {
+      loaderOptions: {
+        sass: {
+          prependData: `@import "@/assets/css/handle.scss";`
+        }
+      }
+  }
 }
