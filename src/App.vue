@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <div class="app-layout">
-      <div class="app-main">
-        <router-view />
-      </div>
-    </div>
+    <router-view />
   </div>
 </template>
 <script>
@@ -23,11 +19,15 @@ export default {
         localStorage.getItem('type')
       )
     } else {
-      window.document.documentElement.setAttribute('data-skin', 'dark')
+      window.document.documentElement.setAttribute('data-skin', 'light')
     }
   },
   methods: {},
 }
 </script>
 
-<style lang="less"></style>
+<style lang="scss">
+#app {
+  height: 100%;
+}
+</style>
