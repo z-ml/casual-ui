@@ -3,6 +3,7 @@
     <menu-header
       :nav-list="navList"
       :version-list="versionList"
+      :language-list="languageList"
       @selectVersion="selectVersion"
     ></menu-header>
     <section class="main">
@@ -27,6 +28,16 @@ export default {
         {
           label: '0.0.1',
           value: '0.0.1',
+        },
+      ],
+      languageList: [
+        {
+          label: '中文',
+          value: 'zh',
+        },
+        {
+          label: 'English',
+          value: 'en',
         },
       ],
     }

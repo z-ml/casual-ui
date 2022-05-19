@@ -3,20 +3,43 @@
     <div class="side-nav">
       <ul>
         <li class="nav-item">
-          <router-link :to="{ name: 'changelog' }">更新日志</router-link>
+          <router-link
+            :to="{ name: 'changelog' }"
+            :class="getNavClass('changelog')"
+            >更新日志</router-link
+          >
         </li>
-        <li class="nav-item" v-for="(item, index) in navList" :key="index">
-          <a>{{ item.label }}</a>
-          <template v-if="!!item.groupName"> </template>
-          <template v-else>
-            <ul v-for="(item, index) in item.groupList" :key="index">
+        <li class="nav-item">
+          <a>{{ developmentGuide.label }}</a>
+          <ul
+            v-for="(item, index) in developmentGuide.componentList"
+            :key="index"
+          >
+            <li class="nav-item">
+              <router-link
+                :to="{ name: item.value }"
+                :class="getNavClass(item.value)"
+                >{{ item.label }}</router-link
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" v-for="(item, index) in groupList" :key="index">
+          <a>组件</a>
+          <div class="nav-group">
+            <div class="group-title">
+              {{ item.label }}
+            </div>
+            <ul v-for="(itm, index) in item.componentList" :key="index">
               <li class="nav-item">
-                <router-link :to="{ name: item.value }">{{
-                  item.label
-                }}</router-link>
+                <router-link
+                  :to="{ name: itm.value }"
+                  :class="getNavClass(itm.value)"
+                  >{{ itm.label }}</router-link
+                >
               </li>
             </ul>
-          </template>
+          </div>
         </li>
       </ul>
     </div>
@@ -28,22 +51,21 @@ export default {
   props: {},
   data() {
     return {
-      navList: [
+      developmentGuide: {
+        label: '开发指南',
+        componentList: [
+          {
+            label: '安装',
+            value: 'installation',
+          },
+        ],
+      },
+      groupList: [
         {
-          label: '开发指南',
-          groupList: [
+          label: 'Basic',
+          componentList: [
             {
-              label: '安装',
-              value: 'installation',
-            },
-          ],
-        },
-        {
-          label: '组件',
-          groupName: 'Basic',
-          groupList: [
-            {
-              label: '菜单',
+              label: 'Menu 菜单',
               value: 'menu',
             },
           ],
@@ -52,7 +74,11 @@ export default {
     }
   },
   created() {},
-  methods: {},
+  methods: {
+    getNavClass(name) {
+      return this.$route.name === name ? 'active' : ''
+    },
+  },
   watch: {},
   components: {},
 }
@@ -98,7 +124,19 @@ export default {
           white-space: nowrap;
           text-overflow: ellipsis;
           font-weight: 400;
+          &:hover {
+            color: #409eff;
+          }
+          &.active {
+            color: #409eff;
+          }
         }
+      }
+      .group-title {
+        font-size: 12px;
+        color: #999;
+        line-height: 26px;
+        margin-top: 15px;
       }
     }
   }

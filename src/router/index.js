@@ -15,9 +15,20 @@ const routes = [
         component: ()=> import('../views/component/index.vue'),
         children: [
           {
+            
+            path: 'installation',
+            name: 'installation',
+            component: ()=> import('../views/component/installation/index.vue'),
+          },
+          {
             path: 'changelog',
             name: 'changelog',
             component: ()=> import('../views/component/changelog/index.vue'),
+          },
+          {
+            path: 'menu',
+            name: 'menu',
+            component: ()=> import('../views/component/menu/index.vue'),
           }
         ]
       }

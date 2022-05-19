@@ -13,7 +13,7 @@
             <el-input
               v-model="docKeyWord"
               size="small"
-              placeholder="搜索文档"
+              :placeholder="$t('layout.menuHeader.Search')"
             ></el-input>
           </li>
           <li class="nav-item" v-for="(item, index) in navList" :key="index">
@@ -21,7 +21,7 @@
               :to="{ name: item.name }"
               :class="getNavClass(item.name)"
             >
-              组件
+              {{ $t('layout.menuHeader.Component') }}
             </router-link>
           </li>
           <li class="nav-item">
@@ -37,6 +37,26 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   v-for="(item, index) in versionList"
+                  :key="index"
+                  :command="item.value"
+                  >{{ item.label }}</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+          </li>
+          <li class="nav-item">
+            <el-dropdown
+              class="nav-dropdown"
+              trigger="click"
+              @command="selectLanguage"
+            >
+              <span class="el-dropdown-link">
+                {{ this.docLanguage
+                }}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  v-for="(item, index) in languageList"
                   :key="index"
                   :command="item.value"
                   >{{ item.label }}</el-dropdown-item
@@ -61,11 +81,16 @@ export default {
       type: Array,
       default: [],
     },
+    languageList: {
+      type: Array,
+      default: [],
+    },
   },
   data() {
     return {
       docKeyWord: '',
       docVersion: '',
+      docLanguage: '',
     }
   },
   created() {},
@@ -74,7 +99,17 @@ export default {
       return this.$route.name === name ? 'active' : ''
     },
     selectVersion(version) {
+      this.docVersion = this.versionList.find(
+        (row) => row.value === version
+      ).label
       this.$emit('selectVersion', version)
+    },
+    selectLanguage(language) {
+      this.docLanguage = this.languageList.find(
+        (row) => row.value === language
+      ).label
+      localStorage.setItem('CASUALUI_LANGUAGE', language)
+      this.$i18n.locale = language
     },
   },
   watch: {
@@ -82,6 +117,14 @@ export default {
       handler(val) {
         if (val) {
           this.docVersion = this.versionList[0].label
+        }
+      },
+      immediate: true,
+    },
+    languageList: {
+      handler(val) {
+        if (val) {
+          this.docLanguage = this.languageList[0].label
         }
       },
       immediate: true,
@@ -143,6 +186,9 @@ export default {
           list-style: none;
           position: relative;
           cursor: pointer;
+          &:last-child {
+            margin-left: 34px;
+          }
           a {
             text-decoration: none;
             color: #1989fa;
@@ -177,6 +223,11 @@ export default {
             transition: 0.2s;
             padding-bottom: 6px;
             user-select: none;
+          }
+          &:hover {
+            span {
+              color: #409eff;
+            }
           }
         }
       }
