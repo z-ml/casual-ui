@@ -12,11 +12,11 @@ Vue.use(Highlight)
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
-const directives = require.context('./directives')
-directives.keys().forEach((key) => {
-  const directive = directives(key)
-  directive.default(Vue)
-})
+// const directives = require.context('./directives')
+// directives.keys().forEach((key) => {
+//   const directive = directives(key)
+//   directive.default(Vue)
+// })
 
 new Vue({
   router,

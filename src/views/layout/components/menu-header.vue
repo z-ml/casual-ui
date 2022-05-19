@@ -17,22 +17,14 @@
             ></el-input>
           </li>
           <li class="nav-item" v-for="(item, index) in navList" :key="index">
-            <router-link
-              :to="{ name: item.name }"
-              :class="getNavClass(item.name)"
-            >
+            <router-link :to="{ name: item.name }" :class="getNavClass(item.name)">
               {{ $t('layout.menuHeader.Component') }}
             </router-link>
           </li>
           <li class="nav-item">
-            <el-dropdown
-              class="nav-dropdown"
-              trigger="click"
-              @command="selectVersion"
-            >
+            <el-dropdown class="nav-dropdown" trigger="click" @command="selectVersion">
               <span class="el-dropdown-link">
-                {{ docVersion
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ docVersion }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -45,14 +37,9 @@
             </el-dropdown>
           </li>
           <li class="nav-item">
-            <el-dropdown
-              class="nav-dropdown"
-              trigger="click"
-              @command="selectLanguage"
-            >
+            <el-dropdown class="nav-dropdown" trigger="click" @command="selectLanguage">
               <span class="el-dropdown-link">
-                {{ this.docLanguage
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ this.docLanguage }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -99,15 +86,11 @@ export default {
       return this.$route.name === name ? 'active' : ''
     },
     selectVersion(version) {
-      this.docVersion = this.versionList.find(
-        (row) => row.value === version
-      ).label
+      this.docVersion = this.versionList.find((row) => row.value === version).label
       this.$emit('selectVersion', version)
     },
     selectLanguage(language) {
-      this.docLanguage = this.languageList.find(
-        (row) => row.value === language
-      ).label
+      this.docLanguage = this.languageList.find((row) => row.value === language).label
       localStorage.setItem('CASUALUI_LANGUAGE', language)
       this.$i18n.locale = language
     },
@@ -125,9 +108,8 @@ export default {
       handler(val) {
         if (val) {
           const language = localStorage.getItem('CASUALUI_LANGUAGE')
-          this.docLanguage = this.languageList.find(
-            (row) => row.value === language
-          ).label
+          const languageItem = this.languageList.find((row) => row.value === language)
+          this.docLanguage = languageItem ? languageItem.label : '中文'
         }
       },
       immediate: true,
