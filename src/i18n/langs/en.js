@@ -1,6 +1,6 @@
 const en = {
   common: {
-    
+
   },
   layout: {
     menuHeader: {
@@ -22,7 +22,9 @@ const en = {
         NavMenu: 'NavMenu',
         NavMenuDes: 'Menu that provides navigation for your website.',
         Topbar: 'Top bar',
-        TopbarDes: 'Top bar NavMenu can be used in a variety of scenarios.'
+        TopbarDes: 'Top bar NavMenu can be used in a variety of scenarios.',
+        Sidebar: 'Side bar',
+        SidebarDes: 'Vertical NavMenu with sub-menus.'
       }
     },
     content: {

@@ -1,6 +1,6 @@
 const zh = {
   common: {
-    
+
   },
   layout: {
     menuHeader: {
@@ -23,6 +23,8 @@ const zh = {
         NavMenuDes: '为网站提供导航功能的菜单。',
         Topbar: '顶栏',
         TopbarDes: '适用广泛的基础用法。',
+        Sidebar: '侧栏',
+        SidebarDes: '垂直菜单，可内嵌子菜单。'
       }
     },
     content: {
