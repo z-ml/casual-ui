@@ -124,7 +124,10 @@ export default {
     languageList: {
       handler(val) {
         if (val) {
-          this.docLanguage = this.languageList[0].label
+          const language = localStorage.getItem('CASUALUI_LANGUAGE')
+          this.docLanguage = this.languageList.find(
+            (row) => row.value === language
+          ).label
         }
       },
       immediate: true,

@@ -44,7 +44,7 @@ export default {
       verticalStyle: {}, //垂直菜单样式
       isOpen: false, //是否展开菜单
       active: false, //是否菜单激活
-      isCollapsed: true, //是否收缩
+      isCollapsed: false, //是否收缩
       isShow: false, //收缩情况下是否展示弹出菜单
       transitionTime: 200, //动画时间
     }
@@ -148,18 +148,18 @@ export default {
   },
   watch: {},
   components: {
-    UiMenu: require('@/components/ui-menu/ui-menu.vue').default,
+    casualMenu: require('@/components/casual-menu/src/casual-menu.vue').default,
   },
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .sub-menu {
   position: relative;
   .menu {
-    @{_deep} > .menu-item {
+    ::v-deep > .menu-item {
       height: 40px;
     }
-    @{_deep}.menu-item {
+    ::v-deep.menu-item {
       padding-left: 60px;
       background-color: #041129;
       &:hover {
@@ -175,7 +175,7 @@ export default {
         padding-left: 60px;
         background-color: #041129;
       }
-      @{_deep}.menu-item {
+      ::v-deep.menu-item {
         padding-left: 70px;
       }
     }
@@ -190,7 +190,7 @@ export default {
   &.sub-menu-active {
     > .sub-menu-title {
       background: linear-gradient(90deg, #0a2643 0%, #108dc5 100%);
-      color: #fff;
+      @include font_color('font_color_909399_fff');
     }
   }
   .sub-menu-title {
@@ -237,7 +237,7 @@ export default {
   display: block;
   z-index: 999;
   box-shadow: 5px 5px 12px 0 #041129;
-  @{_deep}.menu-item {
+  ::v-deep.menu-item {
     background-color: #041129;
     margin-left: 10px;
     padding: 10px 20px !important;
@@ -247,7 +247,7 @@ export default {
       background: #184f8d;
     }
     &.menu-item-active {
-      background: linear-gradient(90deg, #108dc5 0%, #0a2643 100%);
+      @include background_color('background_color_transparent_545c64');
       color: #fff;
     }
   }
@@ -263,7 +263,7 @@ export default {
     &.sub-menu-active {
       > .sub-menu-title {
         color: #fff;
-        background: linear-gradient(90deg, #108dc5 0%, #0a2643 100%);
+        @include background_color('background_color_transparent_545c64');
       }
     }
   }

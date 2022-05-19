@@ -6,11 +6,11 @@
           <router-link
             :to="{ name: 'changelog' }"
             :class="getNavClass('changelog')"
-            >更新日志</router-link
+            >{{ $t('layout.menuLeft.ChangeLog') }}</router-link
           >
         </li>
         <li class="nav-item">
-          <a>{{ developmentGuide.label }}</a>
+          <a>{{ $t('layout.menuLeft.' + developmentGuide.label) }}</a>
           <ul
             v-for="(item, index) in developmentGuide.componentList"
             :key="index"
@@ -19,13 +19,13 @@
               <router-link
                 :to="{ name: item.value }"
                 :class="getNavClass(item.value)"
-                >{{ item.label }}</router-link
+                >{{ $t('layout.menuLeft.' + item.label) }}</router-link
               >
             </li>
           </ul>
         </li>
         <li class="nav-item" v-for="(item, index) in groupList" :key="index">
-          <a>组件</a>
+          <a>{{ $t('layout.menuLeft.Components') }}</a>
           <div class="nav-group">
             <div class="group-title">
               {{ item.label }}
@@ -35,7 +35,7 @@
                 <router-link
                   :to="{ name: itm.value }"
                   :class="getNavClass(itm.value)"
-                  >{{ itm.label }}</router-link
+                  >{{ $t('layout.menuLeft.' + itm.label) }}</router-link
                 >
               </li>
             </ul>
@@ -52,20 +52,24 @@ export default {
   data() {
     return {
       developmentGuide: {
-        label: '开发指南',
+        label: 'Development',
         componentList: [
           {
-            label: '安装',
+            label: 'Installation',
             value: 'installation',
+          },
+          {
+            label: 'QuickStart',
+            value: 'quickstart',
           },
         ],
       },
       groupList: [
         {
-          label: 'Basic',
+          label: 'Navigation',
           componentList: [
             {
-              label: 'Menu 菜单',
+              label: 'Menu',
               value: 'menu',
             },
           ],

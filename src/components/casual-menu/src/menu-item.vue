@@ -1,5 +1,9 @@
 <template>
-  <div class="menu-item" :class="active ? 'menu-item-active' : ''" @click="selectMenu">
+  <div
+    class="menu-item"
+    :class="active ? 'menu-item-active' : ''"
+    @click="selectMenu"
+  >
     <slot></slot>
   </div>
 </template>
@@ -27,7 +31,7 @@ export default {
   components: {},
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .menu-item {
   display: flex;
   align-items: center;
@@ -46,7 +50,7 @@ export default {
     transition: all 0.2s ease;
   }
   &.menu-item-active {
-    background: linear-gradient(90deg, #0a2643 0%, #108dc5 100%);
+    @include background_color('background_color_transparent_545c64');
     color: #fff;
   }
 }

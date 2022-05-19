@@ -21,6 +21,12 @@ const routes = [
             component: ()=> import('../views/component/installation/index.vue'),
           },
           {
+            
+            path: 'quickstart',
+            name: 'quickstart',
+            component: ()=> import('../views/component/quickstart/index.vue'),
+          },
+          {
             path: 'changelog',
             name: 'changelog',
             component: ()=> import('../views/component/changelog/index.vue'),

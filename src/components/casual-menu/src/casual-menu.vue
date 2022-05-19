@@ -162,9 +162,9 @@ export default {
   components: {},
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .collapsed-menu {
-  @{_deep} > .menu-item {
+  ::v-deep > .menu-item {
     span {
       max-width: 70px;
       overflow: hidden;
@@ -172,7 +172,7 @@ export default {
       white-space: nowrap;
     }
   }
-  @{_deep} > .sub-menu {
+  ::v-deep > .sub-menu {
     > .sub-menu-title {
       display: flex;
       flex-direction: column;
@@ -206,14 +206,13 @@ export default {
 
 .menu-horizontal {
   display: flex;
-  @{_deep} > .menu-item {
+  ::v-deep > .menu-item {
     padding: 0 20px;
     height: 53px;
     line-height: 53px;
-    color: rgba(255, 255, 255, 0.7);
+    @include font_color('font_color_909399_fff');
     &.menu-item-active {
-      background: linear-gradient(360deg, #0c7cb5 0%, #065781 100%);
-      color: #fff;
+      @include font_color('font_active_303133_ffd04b');
       position: relative;
       &:after {
         content: '';
@@ -223,31 +222,23 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        background-color: #29c9fb;
+        @include background_color('background_color_409eff_ffd04b');
       }
     }
     &:hover {
-      background: linear-gradient(
-        360deg,
-        rgba(12, 124, 181, 0.6) 0%,
-        rgba(6, 87, 129, 0.6) 100%
-      );
-      color: #fff;
+      @include font_color('font_hover_000_fff');
+      @include background_color('background_color_transparent_545c64');
     }
   }
-  @{_deep} > .sub-menu {
+  ::v-deep > .sub-menu {
     > .sub-menu-title {
       padding: 0 20px;
       height: 53px;
       line-height: 53px;
-      color: rgba(255, 255, 255, 0.7);
+      @include font_color('font_color_909399_fff');
       &:hover {
-        background: linear-gradient(
-          360deg,
-          rgba(12, 124, 181, 0.6) 0%,
-          rgba(6, 87, 129, 0.6) 100%
-        );
-        color: #fff;
+        @include font_color('font_hover_000_fff');
+        @include background_color('background_color_transparent_545c64');
       }
       .sub-menu-title-icon {
         display: none;
@@ -255,8 +246,8 @@ export default {
     }
     &.sub-menu-active {
       > .sub-menu-title {
-        background: linear-gradient(360deg, #0c7cb5 0%, #065781 100%);
-        color: #fff;
+        @include font_color('font_active_303133_ffd04b');
+        border-bottom: 1px solid;
         position: relative;
         &:after {
           content: '';
@@ -266,7 +257,7 @@ export default {
           position: absolute;
           bottom: 0;
           left: 0;
-          background-color: #29c9fb;
+          @include background_color('background_color_409eff_ffd04b');
         }
       }
     }
