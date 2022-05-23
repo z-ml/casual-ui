@@ -1,32 +1,28 @@
 <template>
   <div>
     <page-content :title="title" :content-list="contentList">
-      <demo-content v-for="(item, index) in contentList" :key="index" :demo-data="item">
+      <demo-content
+        v-for="(item, index) in contentList"
+        :key="index"
+        :demo-data="item"
+      >
         <template #content>
-          <casual-menu class="casual-menu" :active="activeRouter" mode="horizontal">
-            <menu-item name="home" @selectMenu="selectNav">
-              <i class="el-icon-menu"></i>
-              <span class="inline vt-middle ml-sm">{{ $t('component.Menu.Home') }}</span>
-            </menu-item>
-            <menu-item name="test1" @selectMenu="selectNav">
-              <i class="el-icon-menu"></i>
-              <span class="inline vt-middle ml-sm">{{ $t('component.Menu.ModuleOne') }}</span>
-            </menu-item>
-          </casual-menu>
+          <renderDemo :render-fun="item.demoRender"></renderDemo>
         </template>
         <template #description>
           <p v-html="item.description"></p>
         </template>
         <template #meta>
           <pre v-highlight>
-            <code class="html" v-html="htmlEncode(item.code)"></code>
+            <code class="html" v-html="htmlEncode(item.htmlcode)"></code><code>&lt;script&gt;</code><code class="javascript">{{item.jscode}}</code><code>&lt;/script&gt;</code>
           </pre>
         </template>
       </demo-content>
     </page-content>
   </div>
 </template>
-<script>
+<script lang="jsx">
+import contentCode from './content-code'
 export default {
   props: {},
   data() {
@@ -41,10 +37,12 @@ export default {
           id: 'ding-lan',
           label: 'Topbar',
           describe: 'TopbarDes',
-          description: `导航菜单默认为垂直模式，通过
-            <code>mode</code>
-            属性可以使导航菜单变更为水平模式。`,
-          code: `<div>4444</div>`,
+          demoRender: (h) => {
+            return contentCode['Topbar']['demoRender'].call(this, h)
+          },
+          description: contentCode['Topbar']['description'],
+          htmlcode: contentCode['Topbar']['htmlcode'],
+          jscode: contentCode['Topbar']['jscode'],
         },
         {
           id: 'bian-lan',
@@ -55,7 +53,9 @@ export default {
       activeRouter: 'home',
     }
   },
-  created() {},
+  created() {
+    console.log(this, 'this')
+  },
   methods: {
     selectNav(name) {
       this.activeRouter = name
@@ -71,6 +71,7 @@ export default {
   },
   watch: {},
   components: {
+    renderDemo: () => import('../components/render-demo.vue'),
     pageContent: () => import('@/components/page-content/index.vue'),
     demoContent: () => import('@/components/page-content/demo-content.vue'),
     casualMenu: () => import('@/components/casual-menu/src/casual-menu.vue'),

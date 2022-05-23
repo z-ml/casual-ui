@@ -10,7 +10,7 @@
       <div class="source">
         <slot name="content"></slot>
       </div>
-      <div class="meta" :style="{ height: metaHeight }">
+      <div class="meta" ref="meta" :style="{ height: metaHeight }">
         <div class="description">
           <slot name="description"></slot>
         </div>
@@ -37,7 +37,12 @@
           :content="$t('layout.content.Run')"
         >
           <transition name="text-slide">
-            <el-button class="control-button" v-show="isEnter" type="text" size="small">
+            <el-button
+              class="control-button"
+              v-show="isEnter"
+              type="text"
+              size="small"
+            >
               {{ $t('layout.content.TryIt') }}
             </el-button>
           </transition>
@@ -72,8 +77,11 @@ export default {
     },
     expand() {
       this.isExpand = !this.isExpand
-      this.metaHeight = this.isExpand ? 'auto' : 0
-      console.log(this, 'this')
+      let height = 0
+      this.$refs.meta.childNodes.forEach((node) => {
+        height += node.clientHeight
+      })
+      this.metaHeight = this.isExpand ? height + 'px' : 0
     },
   },
   watch: {},
@@ -111,7 +119,8 @@ export default {
     border-radius: 3px;
     transition: 0.2s;
     &.hover {
-      box-shadow: 0 0 8px 0 rgb(232 237 250 / 60%), 0 2px 4px 0 rgb(232 237 250 / 50%);
+      box-shadow: 0 0 8px 0 rgb(232 237 250 / 60%),
+        0 2px 4px 0 rgb(232 237 250 / 50%);
     }
     .source {
       padding: 24px;
