@@ -14,7 +14,7 @@
       ></i>
       <i class="icon-font icon-xialazhankai vertical-icon" v-else></i>
     </div>
-    <ui-menu
+    <cl-menu
       v-if="isCollapsed"
       class="menu-vertical"
       ref="menuVertical"
@@ -23,22 +23,22 @@
       @mouseleave.native="mouseleave"
     >
       <slot></slot>
-    </ui-menu>
-    <ui-menu class="menu-inilne" ref="menu" :style="subMenuStyle" v-else>
+    </cl-menu>
+    <cl-menu class="menu-inilne" ref="menu" :style="subMenuStyle" v-else>
       <slot></slot>
-    </ui-menu>
+    </cl-menu>
   </div>
 </template>
 <script>
 export default {
-  name: 'CLSubMenu',
-  componentName: 'CLSubMenu',
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-  },
+  name: 'ClSubMenu',
+  componentName: 'ClSubMenu',
+  // props: {
+  //   name: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   data() {
     return {
       subMenuStyle: {}, //展开菜单样式
@@ -51,18 +51,7 @@ export default {
     }
   },
   created() {},
-  mounted() {
-    // 把三级菜单放入body中
-    const body = document.querySelector('body')
-    this.$nextTick(() => {
-      this.getVerticalStyle()
-      if (body.append) {
-        body.append(this.$refs.menuVertical.$el)
-      } else {
-        body.appendChild(this.$refs.menuVertical.$el)
-      }
-    })
-  },
+  mounted() {},
   methods: {
     /**
      * 计算三级菜单距离顶部的距离
@@ -147,9 +136,24 @@ export default {
       this.getVerticalStyle()
     },
   },
-  watch: {},
+  watch: {
+    isCollapsed(val) {
+      if (val) {
+        // 把三级菜单放入body中
+        const body = document.querySelector('body')
+        this.$nextTick(() => {
+          this.getVerticalStyle()
+          if (body.append) {
+            body.append(this.$refs.menuVertical.$el)
+          } else {
+            body.appendChild(this.$refs.menuVertical.$el)
+          }
+        })
+      }
+    },
+  },
   components: {
-    casualMenu: require('@/components/casual-menu/src/casual-menu.vue').default,
+    clMenu: require('@/components/menu/src/menu.vue').default,
   },
 }
 </script>
@@ -163,10 +167,10 @@ export default {
     ::v-deep.menu-item {
       padding-left: 60px;
       background-color: #041129;
-      &:hover {
-        background-color: #023960;
-        color: #fff;
-      }
+      // &:hover {
+      //   background-color: #023960;
+      //   color: #fff;
+      // }
     }
     > .sub-menu {
       .sub-menu-title {
@@ -202,10 +206,10 @@ export default {
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
     text-align: left;
-    &:hover {
-      color: #fff;
-      background-color: #073c61;
-    }
+    // &:hover {
+    //   color: #fff;
+    //   background-color: #073c61;
+    // }
     .sub-menu-title-icon {
       position: absolute;
       top: 50%;
@@ -243,10 +247,10 @@ export default {
     margin-left: 10px;
     padding: 10px 20px !important;
     width: 160px;
-    &:hover {
-      color: #fff;
-      background: #184f8d;
-    }
+    // &:hover {
+    //   color: #fff;
+    //   background: #184f8d;
+    // }
     &.menu-item-active {
       @include background_color('background_color_transparent_545c64');
       color: #fff;
@@ -256,10 +260,10 @@ export default {
     .sub-menu-title {
       background-color: #041129;
       padding: 10px 20px !important;
-      &:hover {
-        color: #fff;
-        background-color: #184f8d;
-      }
+      // &:hover {
+      //   color: #fff;
+      //   background-color: #184f8d;
+      // }
     }
     &.sub-menu-active {
       > .sub-menu-title {

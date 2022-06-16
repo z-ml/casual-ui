@@ -7,7 +7,33 @@
         :demo-data="item"
       >
         <template #content>
-          <renderDemo :render-fun="item.demoRender"></renderDemo>
+          <cl-menu
+            :mode="item.propsData.mode"
+            :default-active="item.propsData.defaultActive"
+            @select="selectNav"
+          >
+            <cl-menu-item name="home">
+              <i class="el-icon-menu"></i>
+              <span class="inline vt-middle ml-sm">
+                {{ $t('component.Menu.Home') }}
+              </span>
+            </cl-menu-item>
+            <cl-sub-menu>
+              <template #title>{{ $t('component.Menu.ModuleOne') }}</template>
+              <cl-menu-item name="test1">
+                <i class="el-icon-menu"></i>
+                <span class="inline vt-middle ml-sm">
+                  {{ $t('component.Menu.ModuleOne') }}
+                </span>
+              </cl-menu-item>
+            </cl-sub-menu>
+            <cl-menu-item name="test1">
+              <i class="el-icon-menu"></i>
+              <span class="inline vt-middle ml-sm">
+                {{ $t('component.Menu.ModuleOne') }}
+              </span>
+            </cl-menu-item>
+          </cl-menu>
         </template>
         <template #description>
           <p v-html="item.description"></p>
@@ -22,7 +48,7 @@
   </div>
 </template>
 <script lang="jsx">
-import contentCode from './content-code'
+import contentList from './content-list'
 export default {
   props: {},
   data() {
@@ -32,33 +58,12 @@ export default {
         label: 'NavMenu',
         describe: 'NavMenuDes',
       },
-      contentList: [
-        {
-          id: 'ding-lan',
-          label: 'Topbar',
-          describe: 'TopbarDes',
-          demoRender: (h) => {
-            return contentCode['Topbar']['demoRender'].call(this, h)
-          },
-          description: contentCode['Topbar']['description'],
-          htmlcode: contentCode['Topbar']['htmlcode'],
-          jscode: contentCode['Topbar']['jscode'],
-        },
-        {
-          id: 'bian-lan',
-          label: 'Sidebar',
-          describe: 'SidebarDes',
-        },
-      ],
-      activeRouter: 'home',
+      contentList: contentList,
     }
   },
-  created() {
-    console.log(this, 'this')
-  },
+  created() {},
   methods: {
     selectNav(name) {
-      this.activeRouter = name
       this.$message(this.$t('component.Menu.SelectedTip') + name)
     },
     htmlEncode(str) {
@@ -71,12 +76,11 @@ export default {
   },
   watch: {},
   components: {
-    renderDemo: () => import('../components/render-demo.vue'),
     pageContent: () => import('@/components/page-content/index.vue'),
     demoContent: () => import('@/components/page-content/demo-content.vue'),
-    casualMenu: () => import('@/components/casual-menu/src/casual-menu.vue'),
-    menuItem: () => import('@/components/casual-menu/src/menu-item.vue'),
-    subMenu: () => import('@/components/casual-menu/src/sub-menu.vue'),
+    clMenu: () => import('@/components/menu/src/menu.vue'),
+    clMenuItem: () => import('@/components/menu/src/menu-item.vue'),
+    clSubMenu: () => import('@/components/menu/src/sub-menu.vue'),
   },
 }
 </script>

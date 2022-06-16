@@ -9,8 +9,8 @@
 </template>
 <script>
 export default {
-  name: 'CLMenuItem',
-  componentName: 'CLMenuItem',
+  name: 'ClMenuItem',
+  componentName: 'ClMenuItem',
   props: {
     name: {
       required: true,
@@ -28,7 +28,7 @@ export default {
       let parent = this.$parent
       if (parent) {
         let name = parent.$options.componentName
-        while (parent && (!name || name !== 'CLMenu')) {
+        while (parent && (!name || name !== 'ClMenu')) {
           parent = parent.$parent
           if (parent) {
             name = parent.$options.componentName
@@ -52,10 +52,10 @@ export default {
   font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
-  &:hover {
-    background: #023960;
-    color: #fff;
-  }
+  // &:hover {
+  //   background: #023960;
+  //   color: #fff;
+  // }
   span {
     overflow: hidden;
     text-overflow: ellipsis;

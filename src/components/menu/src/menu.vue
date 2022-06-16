@@ -1,7 +1,7 @@
 <script type="text/jsx">
 export default {
-  name: 'CLMenu',
-  componentName: 'CLMenu',
+  name: 'ClMenu',
+  componentName: 'ClMenu',
   render (h) {
     return  <div class="menu"
                 ref="menu"
@@ -30,6 +30,10 @@ export default {
       type: String,
       default: 'vertical',
     },
+    backgroundColor: {
+      type: String,
+      default: '#fff'
+    }
   },
   data() {
     return {
@@ -54,14 +58,14 @@ export default {
     getChildrenSlot(children) {
       children.forEach((row) => {
         switch (row.$options.componentName) {
-          case 'CLMenuItem':
+          case 'ClMenuItem':
             this.menuItemSlot.push(row)
             break
-          case 'CLSubMenu':
+          case 'ClSubMenu':
             this.subMenuSlot.push(row)
             this.getChildrenSlot(row.$children)
             break
-          case 'CLMenu':
+          case 'ClMenu':
             this.uiMenuSlot.push(row)
             this.getChildrenSlot(row.$children)
             break
@@ -127,6 +131,42 @@ export default {
       this.changeActive()
       this.$emit('select', name)
     },
+    getColorChannels(color) {
+        color = color.replace('#', '');
+        if (/^[0-9a-fA-F]{3}$/.test(color)) {
+          color = color.split('');
+          for (let i = 2; i >= 0; i--) {
+            color.splice(i, 0, color[i]);
+          }
+          color = color.join('');
+        }
+        if (/^[0-9a-fA-F]{6}$/.test(color)) {
+          return {
+            red: parseInt(color.slice(0, 2), 16),
+            green: parseInt(color.slice(2, 4), 16),
+            blue: parseInt(color.slice(4, 6), 16)
+          };
+        } else {
+          return {
+            red: 255,
+            green: 255,
+            blue: 255
+          };
+        }
+      },
+      mixColor(color, percent) {
+        let { red, green, blue } = this.getColorChannels(color);
+        if (percent > 0) { // shade given color
+          red *= 1 - percent;
+          green *= 1 - percent;
+          blue *= 1 - percent;
+        } else { // tint given color
+          red += (255 - red) * percent;
+          green += (255 - green) * percent;
+          blue += (255 - blue) * percent;
+        }
+        return `rgb(${ Math.round(red) }, ${ Math.round(green) }, ${ Math.round(blue) })`;
+      },
   },
   watch: {
     $route() {
@@ -170,6 +210,9 @@ export default {
         this.isCollapsed ? 'collapsed-menu' : '',
         this.mode === 'horizontal' ? 'menu-horizontal' : '',
       ]
+    },
+    hoverBackground() {
+      return this.backgroundColor ? this.mixColor(this.backgroundColor, 0.2) : '';
     },
   },
   components: {},
@@ -224,24 +267,24 @@ export default {
     height: 53px;
     line-height: 53px;
     @include font_color('font_color_909399_fff');
-    &.menu-item-active {
-      @include font_color('font_active_303133_ffd04b');
-      position: relative;
-      &:after {
-        content: '';
-        display: inline-block;
-        width: 100%;
-        height: 4px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        @include background_color('background_color_409eff_ffd04b');
-      }
-    }
-    &:hover {
-      @include font_color('font_hover_000_fff');
-      @include background_color('background_color_transparent_545c64');
-    }
+    // &.menu-item-active {
+    //   @include font_color('font_active_303133_ffd04b');
+    //   position: relative;
+    //   &:after {
+    //     content: '';
+    //     display: inline-block;
+    //     width: 100%;
+    //     height: 4px;
+    //     position: absolute;
+    //     bottom: 0;
+    //     left: 0;
+    //     @include background_color('background_color_409eff_ffd04b');
+    //   }
+    // }
+    // &:hover {
+    //   @include font_color('font_hover_000_fff');
+    //   @include background_color('background_color_transparent_545c64');
+    // }
   }
   ::v-deep > .sub-menu {
     > .sub-menu-title {
@@ -249,10 +292,10 @@ export default {
       height: 53px;
       line-height: 53px;
       @include font_color('font_color_909399_fff');
-      &:hover {
-        @include font_color('font_hover_000_fff');
-        @include background_color('background_color_transparent_545c64');
-      }
+      // &:hover {
+      //   @include font_color('font_hover_000_fff');
+      //   @include background_color('background_color_transparent_545c64');
+      // }
       .sub-menu-title-icon {
         display: none;
       }
