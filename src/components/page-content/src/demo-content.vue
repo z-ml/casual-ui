@@ -1,7 +1,6 @@
 <template>
   <div class="demo-content">
     <h3 :id="demoData.id">
-      <a :href="`#${demoData.id}`">¶</a>
       {{ $t('layout.component.Nav.' + demoData.label) }}
     </h3>
     <p v-if="demoData.describe">
@@ -12,7 +11,7 @@
       @mouseleave="mouseleave"
       :class="['demo', isEnter ? 'hover' : null]"
     >
-      <div class="source">
+      <div class="source" v-if="$slots.content">
         <slot name="content"></slot>
       </div>
       <div class="meta" ref="meta" :style="{ height: metaHeight }">
@@ -67,6 +66,7 @@ export default {
   },
   data() {
     return {
+      href: window.location.href,
       isEnter: false,
       isExpand: false,
       metaHeight: 'auto',
@@ -100,19 +100,6 @@ export default {
   }
   h3 {
     font-size: 22px;
-    a {
-      float: left;
-      margin-left: -20px;
-      opacity: 0;
-      cursor: pointer;
-      color: #409eff;
-      text-decoration: none;
-    }
-    &:hover {
-      a {
-        opacity: 0.4;
-      }
-    }
   }
   h2,
   h3,

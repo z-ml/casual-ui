@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <h3>
-      <a href="">¶</a>
-      {{ title }}
-    </h3>
-    <cl-table :table-columns="attrColmuns"></cl-table>
-  </div>
+  <cl-table :table-columns="attrColmuns"></cl-table>
 </template>
 <script>
 import { attributesColmuns } from './config'

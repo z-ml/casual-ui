@@ -80,7 +80,7 @@ export default {
           padding-bottom: 100px;
           padding-top: 50px;
           overflow-y: auto;
-          height: 100%;
+          height: calc(100% - 150px);
         }
       }
     }
