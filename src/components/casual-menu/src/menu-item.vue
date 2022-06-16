@@ -9,7 +9,8 @@
 </template>
 <script>
 export default {
-  name: 'menu-item',
+  name: 'CLMenuItem',
+  componentName: 'CLMenuItem',
   props: {
     name: {
       required: true,
@@ -24,7 +25,19 @@ export default {
   created() {},
   methods: {
     selectMenu() {
-      this.$emit('selectMenu', this.name)
+      let parent = this.$parent
+      if (parent) {
+        let name = parent.$options.componentName
+        while (parent && (!name || name !== 'CLMenu')) {
+          parent = parent.$parent
+          if (parent) {
+            name = parent.$options.componentName
+          }
+        }
+        if (parent) {
+          parent.$emit.apply(parent, ['item-click'].concat(this))
+        }
+      }
     },
   },
   watch: {},

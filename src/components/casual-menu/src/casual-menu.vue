@@ -1,11 +1,17 @@
-<template>
-  <div class="menu" ref="menu" :class="computedClass">
-    <slot></slot>
-  </div>
-</template>
-<script>
+<script type="text/jsx">
 export default {
-  name: 'casual-menu',
+  name: 'CLMenu',
+  componentName: 'CLMenu',
+  render (h) {
+    return  <div class="menu"
+                ref="menu"
+                {...{
+                  class:[this.computedClass]
+                }}
+            >
+              {this.$slots.default}
+            </div>
+  },
   props: {
     openNames: {
       type: Array,
@@ -13,7 +19,7 @@ export default {
         return []
       },
     },
-    active: {
+    defaultActive: {
       type: String,
     },
     isCollapsed: {
@@ -38,23 +44,24 @@ export default {
   mounted() {
     this.offsetHeight = this.$refs.menu.offsetHeight
     this.getChildrenSlot(this.$children)
-    this.activeName = this.active
+    this.activeName = this.defaultActive
     this.changeActive()
     this.changeCollapsed(this.$children)
     this.updateOpened()
+    this.$on('item-click', this.handleItemClick)
   },
   methods: {
     getChildrenSlot(children) {
       children.forEach((row) => {
-        switch (row.$options.name) {
-          case 'menu-item':
+        switch (row.$options.componentName) {
+          case 'CLMenuItem':
             this.menuItemSlot.push(row)
             break
-          case 'sub-menu':
+          case 'CLSubMenu':
             this.subMenuSlot.push(row)
             this.getChildrenSlot(row.$children)
             break
-          case 'ui-menu':
+          case 'CLMenu':
             this.uiMenuSlot.push(row)
             this.getChildrenSlot(row.$children)
             break
@@ -114,6 +121,12 @@ export default {
         row.isCollapsed = this.isCollapsed
       })
     },
+    handleItemClick(item) {
+      const { name } = item
+      this.activeName = name
+      this.changeActive()
+      this.$emit('select', name)
+    },
   },
   watch: {
     $route() {
@@ -127,14 +140,14 @@ export default {
         this.updateOpened()
       })
     },
-    active: {
-      handler(val) {
-        this.$nextTick(() => {
-          this.activeName = val
-          this.changeActive()
-        })
-      },
-    },
+    // active: {
+    //   handler(val) {
+    //     this.$nextTick(() => {
+    //       this.activeName = val
+    //       this.changeActive()
+    //     })
+    //   },
+    // },
     openNames: {
       handler(val) {
         // if(!val || val.length === 0) return;

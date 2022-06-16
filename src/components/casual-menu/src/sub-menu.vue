@@ -31,7 +31,8 @@
 </template>
 <script>
 export default {
-  name: 'sub-menu',
+  name: 'CLSubMenu',
+  componentName: 'CLSubMenu',
   props: {
     name: {
       type: String,
