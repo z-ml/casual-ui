@@ -1,7 +1,12 @@
 <template>
   <div class="demo-content">
-    <h3>{{ $t('layout.component.Nav.' + demoData.label) }}</h3>
-    <p>{{ $t('layout.component.Nav.' + demoData.describe) }}</p>
+    <h3 :id="demoData.id">
+      <a :href="`#${demoData.id}`">¶</a>
+      {{ $t('layout.component.Nav.' + demoData.label) }}
+    </h3>
+    <p v-if="demoData.describe">
+      {{ $t('layout.component.Nav.' + demoData.describe) }}
+    </p>
     <div
       @mouseenter="mouseenter"
       @mouseleave="mouseleave"
@@ -95,6 +100,19 @@ export default {
   }
   h3 {
     font-size: 22px;
+    a {
+      float: left;
+      margin-left: -20px;
+      opacity: 0;
+      cursor: pointer;
+      color: #409eff;
+      text-decoration: none;
+    }
+    &:hover {
+      a {
+        opacity: 0.4;
+      }
+    }
   }
   h2,
   h3,

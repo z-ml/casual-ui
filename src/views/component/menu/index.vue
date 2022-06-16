@@ -1,51 +1,55 @@
 <template>
-  <div>
-    <page-content :title="title" :content-list="contentList">
-      <demo-content
-        v-for="(item, index) in contentList"
-        :key="index"
-        :demo-data="item"
-      >
-        <template #content>
-          <cl-menu
-            :mode="item.propsData.mode"
-            :default-active="item.propsData.defaultActive"
-            @select="selectNav"
-          >
-            <cl-menu-item name="home">
-              <i class="el-icon-menu"></i>
-              <span class="inline vt-middle ml-sm">
-                {{ $t('component.Menu.Home') }}
-              </span>
-            </cl-menu-item>
-            <cl-sub-menu>
-              <template #title>{{ $t('component.Menu.ModuleOne') }}</template>
-              <cl-menu-item name="test1">
-                <i class="el-icon-menu"></i>
-                <span class="inline vt-middle ml-sm">
-                  {{ $t('component.Menu.ModuleOne') }}
-                </span>
-              </cl-menu-item>
-            </cl-sub-menu>
+  <page-content :title="title" :content-list="contentList">
+    <demo-content
+      v-for="(item, index) in contentList"
+      :key="index"
+      :demo-data="item"
+    >
+      <template #content>
+        <cl-menu
+          :mode="item.propsData.mode"
+          :default-active="item.propsData.defaultActive"
+          @select="selectNav"
+        >
+          <cl-menu-item name="home">
+            <i class="el-icon-menu"></i>
+            <span class="inline vt-middle ml-sm">
+              {{ $t('component.Menu.Home') }}
+            </span>
+          </cl-menu-item>
+          <cl-sub-menu>
+            <template #title>{{ $t('component.Menu.ModuleOne') }}</template>
             <cl-menu-item name="test1">
               <i class="el-icon-menu"></i>
               <span class="inline vt-middle ml-sm">
                 {{ $t('component.Menu.ModuleOne') }}
               </span>
             </cl-menu-item>
-          </cl-menu>
-        </template>
-        <template #description>
-          <p v-html="item.description"></p>
-        </template>
-        <template #meta>
-          <pre v-highlight>
+          </cl-sub-menu>
+          <cl-menu-item name="test1">
+            <i class="el-icon-menu"></i>
+            <span class="inline vt-middle ml-sm">
+              {{ $t('component.Menu.ModuleOne') }}
+            </span>
+          </cl-menu-item>
+        </cl-menu>
+      </template>
+      <template #description>
+        <p v-html="item.description"></p>
+      </template>
+      <template #meta>
+        <pre v-highlight>
             <code class="html" v-html="htmlEncode(item.htmlcode)"></code><code>&lt;script&gt;</code><code class="javascript">{{item.jscode}}</code><code>&lt;/script&gt;</code>
           </pre>
-        </template>
-      </demo-content>
-    </page-content>
-  </div>
+      </template>
+    </demo-content>
+    <attr-list
+      v-for="(item, index) in attributesList"
+      :key="index"
+      :title="item.title"
+      :type="item.type"
+    ></attr-list>
+  </page-content>
 </template>
 <script lang="jsx">
 import contentList from './content-list'
@@ -59,6 +63,12 @@ export default {
         describe: 'NavMenuDes',
       },
       contentList: contentList,
+      attributesList: [
+        {
+          title: 'Table Attributes',
+          type: 'attr',
+        },
+      ],
     }
   },
   created() {},
@@ -76,11 +86,12 @@ export default {
   },
   watch: {},
   components: {
-    pageContent: () => import('@/components/page-content/index.vue'),
-    demoContent: () => import('@/components/page-content/demo-content.vue'),
+    pageContent: () => import('@/components/page-content/src/index.vue'),
+    demoContent: () => import('@/components/page-content/src/demo-content.vue'),
     clMenu: () => import('@/components/menu/src/menu.vue'),
     clMenuItem: () => import('@/components/menu/src/menu-item.vue'),
     clSubMenu: () => import('@/components/menu/src/sub-menu.vue'),
+    attrList: () => import('@/components/attr-list/src/index.vue'),
   },
 }
 </script>

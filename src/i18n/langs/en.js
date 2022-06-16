@@ -35,6 +35,13 @@ const en = {
     }
   },
   component: {
+    Attr: {
+      Attribute: 'Attribute',
+      Description: 'Description',
+      Type: 'Type',
+      AcceptedValues: 'Accepted Values',
+      Default: 'Default'
+    },
     Menu: {
       Home: 'Home',
       SelectedTip: 'Menu selected ',

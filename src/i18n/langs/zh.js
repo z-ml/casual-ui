@@ -35,6 +35,13 @@ const zh = {
     }
   },
   component: {
+    Attr: {
+      Attribute: '参数',
+      Description: '说明',
+      Type: '类型',
+      AcceptedValues: '可选值',
+      Default: '默认值'
+    },
     Menu: {
       Home: '首页',
       SelectedTip: '选中了菜单 ',

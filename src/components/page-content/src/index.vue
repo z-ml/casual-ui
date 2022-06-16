@@ -28,7 +28,6 @@ export default {
     expand() {
       this.isExpand = !this.isExpand
       this.metaHeight = this.isExpand ? 'auto' : 0
-      console.log(this, 'this')
     },
   },
   watch: {},
