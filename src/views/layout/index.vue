@@ -7,9 +7,11 @@
       @selectVersion="selectVersion"
     ></menu-header>
     <section class="main">
-      <div class="container">
-        <menu-left></menu-left>
-        <router-view class="content"></router-view>
+      <div class="component">
+        <div class="container">
+          <menu-left></menu-left>
+          <router-view class="content"></router-view>
+        </div>
       </div>
     </section>
   </div>
@@ -60,16 +62,26 @@ export default {
 .layout {
   height: 100%;
   .main {
-    height: calc(100% - 80px);
-    margin-top: 80px;
-    .container {
-      height: 100%;
-      width: 1140px;
-      margin: 0 auto;
-      .content {
-        padding-left: 270px;
-        padding-bottom: 100px;
-        padding-top: 50px;
+    padding: 0;
+    margin-top: 0;
+    height: 100%;
+    min-height: auto;
+    .component {
+      height: calc(100% - 80px);
+      margin-top: 80px;
+      overflow: hidden;
+      position: relative;
+      .container {
+        width: 1140px;
+        height: 100%;
+        margin: 0 auto;
+        .content {
+          padding-left: 270px;
+          padding-bottom: 100px;
+          padding-top: 50px;
+          overflow-y: auto;
+          height: 100%;
+        }
       }
     }
   }
